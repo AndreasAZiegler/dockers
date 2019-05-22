@@ -1,6 +1,6 @@
 # This is an auto generated Dockerfile for ros:desktop-full
 # generated from docker_images/create_ros_image.Dockerfile.em
-FROM ubuntu:16.04.05
+FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -q -y tzdata && rm -rf /var/lib/apt/lists/
 
 # install ros packages
 RUN apt-get update && apt-get install -y \
-  cmake git vim pkg-config \
-  sudo unzip ffmpeg qtbase5-dev \
+  cmake ccache git vim pkg-config \
+  sudo unzip wget ffmpeg qtbase5-dev \
   python-dev python3-dev python-numpy python3-numpy \
   libopencv-dev libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libtiff5-dev \
   libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
@@ -30,8 +30,8 @@ RUN apt-get update && apt-get install -y \
   libglfw3-dev libusb-1.0-0-dev
 
 RUN wget https://github.com/opencv/opencv/archive/3.4.4.tar.gz
-RUN tar xzf 3.4.3.tar.gz
-RUN cd opencv-3.4.3 && mkdir build && cd build && \
+RUN tar xzf 3.4.4.tar.gz
+RUN cd opencv-3.4.4 && mkdir build && cd build && \
 cmake -G "Unix Makefiles" --build . -D BUILD_CUDA_STUBS=OFF -D BUILD_DOCS=OFF \
 -D BUILD_EXAMPLES=OFF -D BUILD_JASPER=OFF -D BUILD_JPEG=OFF -D BUILD_OPENEXR=OFF \
 -D BUILD_PACKAGE=ON -D BUILD_PERF_TESTS=OFF -D BUILD_PNG=OFF -D BUILD_SHARED_LIBS=ON \

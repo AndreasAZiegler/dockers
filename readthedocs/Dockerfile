@@ -15,7 +15,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES \
 
 RUN apt-get update && apt-get install -q -y tzdata && rm -rf /var/lib/apt/lists/*
 
-# install ros packages
+# install packages
 RUN apt-get update && apt-get install -y \
 build-essential \
 git \
