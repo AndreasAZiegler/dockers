@@ -7,7 +7,7 @@ LABEL com.nvidia.volumes.needed="nvidia_driver"
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 ENV LANG en_US.UTF-8
-ENV ROS_DISTRO crystal
+ENV ROS_DISTRO dashing
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
@@ -21,9 +21,10 @@ RUN locale-gen en_US en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 # install packages
-RUN apt update && apt install -y curl gnupg2 lsb-release
+RUN apt update && apt install -y curl gnupg2 lsb-release wget
 
 RUN curl http://repo.ros2.org/repos.key | apt-key add -
+RUN wget http://repo.ros2.org/repos.key -O - | apt-key add -
 
 RUN sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
@@ -37,7 +38,7 @@ RUN apt-get update && apt-get install -y \
   build-essential \
   libgtest-dev \
   lcov \
-  libgoogle-glog-dev
+  libgoogle-glog-dev google-perftools libgoogle-perftools*
 
 RUN cd /usr/src/gtest && cmake . && make && cp *.a /usr/lib
 
